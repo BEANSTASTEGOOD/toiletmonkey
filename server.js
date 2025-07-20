@@ -935,7 +935,7 @@ Never gonna tell a lie and hurt you!`,
   broadcast({
     type: "video",
     target: "https://y.yarn.co/dca7cbc4-2ed7-4752-b0cf-1ce9c58d7686.mp4",
-    timeout: 4750,
+    timeout: 4.75,
   });
   return;
 }
