@@ -903,6 +903,15 @@ Never gonna tell a lie and hurt you!`,
               })
             );
           }
+          if (
+                !videoURL.startsWith(`https://youtube`) &&
+                !videoURL.target.startsWith(`https://www.youtube`) &&
+                !videoURL.target.startsWith(`www.youtube`) &&
+                !videoURL.target.startsWith(`youtube`)
+              ) {
+                showToast("Only upload Youtube videos.");
+                return;
+              }
           broadcast({
             type: "video",
             target: videoURL,
