@@ -53,6 +53,70 @@
   */
 }
 
+      @import url(https://fonts.googleapis.com/css?family=Concert+One);
+
+#happytext {
+  animation:glow 10s ease-in-out infinite;
+  
+  
+
+/* For less laggy effect, uncomment this:
+  
+  animation:none;
+  -webkit-text-stroke:1px #fff; 
+  
+=========== */
+  
+}
+
+
+
+figure { box-sizing:border-box; }
+
+
+
+figure {
+  text-align:center;
+  animation:wobble 5s ease-in-out infinite;
+  transform-origin:center center;
+  transform-style:preserve-3d;
+}
+
+@keyframes wobble {
+  0%,100%{ transform:rotate3d(1,1,0,40deg); }
+  25%{ transform:rotate3d(-1,1,0,40deg); }
+  50%{ transform:rotate3d(-1,-1,0,40deg); }
+  75%{ transform:rotate3d(1,-1,0,40deg); }
+}
+
+#happytext {
+  display:block;
+  width:100%;
+  padding:40px;
+  line-height:1.5;
+  font:900 1.8em 'Concert One', sans-serif;
+  text-transform:uppercase;
+  position:absolute;
+  color:#0a0a0a;
+}
+
+@keyframes glow {
+  0%,100%{ text-shadow:0 0 30px red; }
+  25%{ text-shadow:0 0 30px orange; }
+  50%{ text-shadow:0 0 30px forestgreen; }
+  75%{ text-shadow:0 0 30px cyan; }
+}
+
+#happytext:nth-child(2){ transform:translateZ(5px); }
+#happytext:nth-child(3){ transform:translateZ(10px);}
+#happytext:nth-child(4){ transform:translateZ(15px); }
+#happytext:nth-child(5){ transform:translateZ(20px); }
+#happytext:nth-child(6){ transform:translateZ(25px); }
+#happytext:nth-child(7){ transform:translateZ(30px); }
+#happytext:nth-child(8){ transform:translateZ(35px); }
+#happytext:nth-child(9){ transform:translateZ(40px); }
+#happytext:nth-child(10){ transform:translateZ(45px); }
+
 
 
 .text_shadows {
@@ -837,6 +901,7 @@
             .replace(/;(.*?);/g, '<span class="noice">👉$1👈</span>')
             .replace(/!(.*?)!/g, '<span class="sixtyfour">$1</span')
             .replace(/=(.*?)=/g, '<span class="lobster">$1</span>')
+          .replace(/`(.*?)`/g, '<figure> <span id="happytext">$1</span> <span id="happytext">$1</span> <span id="happytext">$1</span> <span id="happytext">$1</span> <span id="happytext">$1</span> <span id="happytext">$1</span> <span id="happytext">$1</span> <span id="happytext">$1</span> <span id="happytext">$1</span> <span id="happytext">$1</span> </figure>')
           .replace(/\+(.*?)\+/g, '<span class="wow">$1</span>')
           .replace(/:(.*?):/g, (_, p1) => shadow(p1))
             // Bungee Spice font
