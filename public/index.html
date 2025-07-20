@@ -1141,15 +1141,6 @@ figure {
             case "video":
               const p = document.createElement("p");
               p.src = m.image;
-              if (
-                !m.target.startsWith(`https://youtube`) &&
-                !m.target.startsWith(`https://www.youtube`) &&
-                !m.target.startsWith(`www.youtube`) &&
-                !m.target.startsWith(`youtube`)
-              ) {
-                showToast("Only upload Youtube videos.");
-                return;
-              }
               p.style.position = "fixed";
               p.style.top = "50%";
               p.style.left = "50%";
