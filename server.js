@@ -18,6 +18,7 @@ const kickRequests = new Map(); // targetName -> Set(voters)
 const unkickRequests = new Map(); // targetIP -> Set(voters)
 const bannedIPs = new Set(); // permanently banned until /unkick
 const nameToIP = new Map(); // name -> ip
+const activeEffects = new Map(); // username -> { type: 'caveman'|'drunkify', expires: timestamp }
 
 let currentPoll = null;
 
@@ -27,6 +28,14 @@ function randomPastelColor() {
     .join(",")})`;
 }
 
+setInterval(() => {
+  const now = Date.now();
+  for (const [user, data] of activeEffects.entries()) {
+    if (data.expires < now) activeEffects.delete(user);
+  }
+}, 5000);
+
+
 function broadcast(msg, except = null) {
   const s = JSON.stringify(msg);
   for (const client of clients.keys()) {
@@ -34,6 +43,34 @@ function broadcast(msg, except = null) {
       client.send(s);
     }
   }
+}
+
+function applyEffect(username, message) {
+  const effect = activeEffects.get(username);
+  if (!effect || Date.now() > effect.expires) return message;
+
+  if (effect.type === "drunkify") {
+    return message.split('').map(c => {
+      if (Math.random() < 0.15) return c + c.toLowerCase();
+      if (Math.random() < 0.1) return c.toUpperCase();
+      return c;
+    }).join('');
+  }
+
+  if (effect.type === "caveman") {
+    return message
+      .toLowerCase()
+      .replace(/\b(hello|hi|hey)\b/g, "ug")
+      .replace(/\b(I am|I'm|me)\b/g, "me")
+      .replace(/\b(you)\b/g, "you")
+      .replace(/\b(are)\b/g, "is")
+      .replace(/\b(yes)\b/g, "ug")
+      .replace(/\b(no)\b/g, "ugh")
+      .replace(/[aeiou]{2,}/g, "u")
+      .replace(/[.,!?]/g, "") + " UG.";
+  }
+
+  return message;
 }
 
 function updateUserList() {
@@ -459,6 +496,44 @@ if (msg.startsWith("/milk ")) {
           return;
         }
 
+if (msg.startsWith("/caveman ") || msg.startsWith("/drunkify ")) {
+  if (!user.isAdmin) {
+    ws.send(JSON.stringify({ type: "system", message: "⚠️ Only admins can use this." }));
+    return;
+  }
+
+  const [command, target] = msg.trim().split(/\s+/);
+  const type = command.slice(1); // 'caveman' or 'drunkify'
+
+  let found = false;
+  for (const [c, info] of clients.entries()) {
+    if (info.name === target) {
+      activeEffects.set(target, {
+        type,
+        expires: Date.now() + 60 * 1000, // 60 seconds
+      });
+
+      broadcast({
+        type: "system",
+        message: `💬 ${target}'s messages will now be ${type === "drunkify" ? "drunken gibberish" : "caveman grunts"} for 60 seconds!`,
+      });
+
+      found = true;
+      break;
+    }
+  }
+
+  if (!found) {
+    ws.send(JSON.stringify({
+      type: "system",
+      message: `⚠️ User "${target}" not found.`,
+    }));
+  }
+
+  return;
+}
+
+        
         if (msg.startsWith("/rickroll ")) {
           if (!user.isAdmin) {
             ws.send(
@@ -960,7 +1035,7 @@ Never gonna tell a lie and hurt you!`,
           broadcast({
             type: "chat",
             username: user.name,
-            message: msg,
+            message: applyEffect(user.name, msg),
             isAdmin: user.isAdmin,
             timestamp: ts,
             id,
