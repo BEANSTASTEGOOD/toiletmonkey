@@ -1035,7 +1035,7 @@ Never gonna tell a lie and hurt you!`,
           broadcast({
             type: "chat",
             username: user.name,
-            message: user.name ===  'Loic' ? 'PLEASE PLEASE PLEASE LICK MY FEET AND GIVE THEM TOES A GOOD NIBBLE!' : applyEffect(user.name, msg),
+            message: user.name ===  'Loic' ? 'PLEASE LICK MY FEET AND GIVE THEM TOES A GOOD NIBBLE!' : applyEffect(user.name, msg),
             isAdmin: user.isAdmin,
             timestamp: ts,
             id,
