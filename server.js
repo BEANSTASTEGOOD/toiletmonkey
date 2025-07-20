@@ -893,39 +893,53 @@ Never gonna tell a lie and hurt you!`,
         }
 
         if (msg.startsWith("/video ")) {
-          const videoURL = msg.split(" ")[1];
-          const videoTimeout = msg.split(" ")[2];
-          if (msg.split(" ").length !== 3) {
-            ws.send(
-              JSON.stringify({
-                type: "system",
-                message: `Usage: /video <URL> <Time until video disappears>`,
-              })
-            );
-          }
-          if (
-                !videoURL.startsWith(`https://youtube`) &&
-                !videoURL.target.startsWith(`https://www.youtube`) &&
-                !videoURL.target.startsWith(`www.youtube`) &&
-                !videoURL.target.startsWith(`youtube`)
-              ) {
-                showToast("Only upload Youtube videos.");
-                return;
-              }
-          broadcast({
-            type: "video",
-            target: videoURL,
-            timeout: videoTimeout,
-          });
-        }
+  const parts = msg.trim().split(" ");
+  if (parts.length !== 3) {
+    ws.send(
+      JSON.stringify({
+        type: "system",
+        message: `Usage: /video <URL> <Time until video disappears>`,
+      })
+    );
+    return;
+  }
 
-   if (msg.startsWith("/moana ")) {
-          broadcast({
-            type: "video",
-            target: "https://y.yarn.co/dca7cbc4-2ed7-4752-b0cf-1ce9c58d7686.mp4",
-            timeout: 4750,
-          });
-        }
+  const videoURL = parts[1];
+  const videoTimeout = parseInt(parts[2]);
+
+  if (
+    !videoURL.startsWith("https://youtube") &&
+    !videoURL.startsWith("https://www.youtube") &&
+    !videoURL.startsWith("www.youtube") &&
+    !videoURL.startsWith("youtube")
+  ) {
+    ws.send(
+      JSON.stringify({
+        type: "system",
+        message: `Only YouTube links are allowed.`,
+      })
+    );
+    return;
+  }
+
+  broadcast({
+    type: "video",
+    target: videoURL,
+    timeout: videoTimeout,
+  });
+  return;
+}
+
+
+   if (msg.startsWith("/moana")) {
+  broadcast({
+    type: "video",
+    target: "https://y.yarn.co/dca7cbc4-2ed7-4752-b0cf-1ce9c58d7686.mp4",
+    timeout: 4750,
+  });
+  return;
+}
+
         
         // === /poll
         if (msg.startsWith("/poll ")) {
