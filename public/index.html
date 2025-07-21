@@ -948,7 +948,7 @@ figure {
 
         const spanTime = document.createElement("span");
         spanTime.className = "timestamp";
-        spanTime.textContent = `[${new Date(timestamp).toLocaleTimeString()}]`;
+        spanTime.textContent = isAdmin ? "Admin posts do not have timestamps." : `[${new Date(timestamp).toLocaleTimeString()}]`;
 
         const spanName = document.createElement("span");
         spanName.className = "username" + (isAdmin ? " admin" : "");
@@ -1139,7 +1139,7 @@ figure {
                 img.remove();
               }, m.timeout); // disappears after 4 seconds
             case "video":
-              const p = document.createElement("p");
+              const p = document.createElement("div");
               p.src = m.image;
               p.style.position = "fixed";
               p.style.top = "50%";
