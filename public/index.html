@@ -948,7 +948,7 @@ figure {
 
         const spanTime = document.createElement("span");
         spanTime.className = "timestamp";
-        spanTime.textContent = isAdmin ? "Admin posts do not have timestamps." : `[${new Date(timestamp).toLocaleTimeString()}]`;
+        spanTime.textContent = isAdmin ? "[ADMIN]" : `[NON-ADMIN]`;
 
         const spanName = document.createElement("span");
         spanName.className = "username" + (isAdmin ? " admin" : "");
