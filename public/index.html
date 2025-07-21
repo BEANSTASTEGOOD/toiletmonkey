@@ -729,6 +729,13 @@ figure {
     ></audio>
 
     <script>
+
+      if (!localStorage.getItem("Rank")) {
+        let ranks = ["SKILLED", "FAILURE", "XXXXXL", "STINKY", "BATTERY", "TURKEY", "T̾O̾I̾L̾E̾T̾ ̾M̾O̾N̾K̾E̾Y̾"];
+        let random = Math.floor(Math.random() * ranks.length);
+        localStorage.setItem("Rank", ranks[random])
+      }
+      
       // ----- Utility Functions -----
       function showToast(msg, duration = 3000) {
         const t = document.getElementById("toast");
@@ -948,7 +955,7 @@ figure {
 
         const spanTime = document.createElement("span");
         spanTime.className = "timestamp";
-        spanTime.textContent = isAdmin ? "[ADMIN]" : `[NON-ADMIN]`;
+        spanTime.textContent = isAdmin ? "[ADMIN]" : `[${localStorage.getItem("Rank")}]`;
 
         const spanName = document.createElement("span");
         spanName.className = "username" + (isAdmin ? " admin" : "");
