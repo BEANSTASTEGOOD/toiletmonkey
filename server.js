@@ -936,6 +936,9 @@ Never gonna tell a lie and hurt you!`,
        return;
      }
      for (const [c, info] of clients.entries()) {
+       if(!c.isAdmin){
+       
+     
               c.send(
                 JSON.stringify({
                   type: "video",
@@ -943,6 +946,7 @@ Never gonna tell a lie and hurt you!`,
                   timeout: 4.75,
                 })
               );
+       }
      }
   return;
 }
