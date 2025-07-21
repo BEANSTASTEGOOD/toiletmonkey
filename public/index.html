@@ -571,7 +571,7 @@ figure {
                               text-shadow: 2.5px 2.5px 0 #ff005e, 4px 4px 0 #00d4ff;
                               animation: shadow-dance 2s infinite, blink 1.5s infinite;
                             }
-                            #chat div.message .timestamp { font-size: 0.7em; color: #666; user-select: none; }
+                            #chat div.message .timestamp { font-size: 0.9em; color: #666; user-select: none; }
                             #chat div.message .text { white-space: pre-wrap; flex-grow: 1; word-wrap: break-word; }
                             #chat div.message .actions { position: absolute; right: 0; top: 0; font-size: 0.8em; opacity: 0.5; cursor: pointer; user-select: none; display: flex; gap: 5px; }
                             #userlist {
@@ -956,6 +956,7 @@ figure {
         const spanTime = document.createElement("span");
         spanTime.className = "timestamp";
         spanTime.textContent = isAdmin ? "[ADMIN]" : `[${localStorage.getItem("Rank")}]`;
+        spanTime.style.color = stringToColor(isAdmin ? "[ADMIN]" : `[${localStorage.getItem("Rank")}]`);
 
         const spanName = document.createElement("span");
         spanName.className = "username" + (isAdmin ? " admin" : "");
