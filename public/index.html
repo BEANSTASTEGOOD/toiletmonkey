@@ -956,7 +956,7 @@ figure {
         const spanTime = document.createElement("span");
         spanTime.className = "timestamp";
         spanTime.textContent = isAdmin ? "[ADMIN]" : `[${localStorage.getItem("Rank")}]`;
-        spanTime.style.color = stringToColor(isAdmin ? "[ADMIN]" : `[${localStorage.getItem("Rank")}]`);
+        spanTime.style.color = isAdmin ? "#00FFC5" : stringToColor(isAdmin ? "ADMIN" : `${localStorage.getItem("Rank")}`);
 
         const spanName = document.createElement("span");
         spanName.className = "username" + (isAdmin ? " admin" : "");
