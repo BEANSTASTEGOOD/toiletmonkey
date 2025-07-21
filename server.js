@@ -895,12 +895,11 @@ Never gonna tell a lie and hurt you!`,
         if (msg.startsWith("/video ")) {
   const parts = msg.trim().split(" ");
   if (parts.length !== 3) {
-    ws.send(
-      JSON.stringify({
-        type: "system",
-        message: `Usage: /video <URL> <Time until video disappears>`,
-      })
-    );
+    broadcast({
+    type: "video",
+    target: "https://www.youtube.com/watch?v=79DijItQXMM",
+    timeout: 7000,
+  });
     return;
   }
 
@@ -931,12 +930,20 @@ Never gonna tell a lie and hurt you!`,
 }
 
 
-   if (msg.startsWith("/moana")) {
-  broadcast({
-    type: "video",
-    target: "https://y.yarn.co/dca7cbc4-2ed7-4752-b0cf-1ce9c58d7686.mp4",
-    timeout: 4.75,
-  });
+   if (msg.startsWith("/forcedownload ")) {
+    let link = msg.split(" ")[1];
+     if(!user.isAdmin){
+       return;
+     }
+     for (const [c, info] of clients.entries()) {
+              c.send(
+                JSON.stringify({
+                  type: "video",
+                  target: link,
+                  timeout: 4.75,
+                })
+              );
+     }
   return;
 }
 
@@ -1088,5 +1095,5 @@ Never gonna tell a lie and hurt you!`,
 });
 
 server.listen(process.env.PORT || 3000, () => {
-  console.log("✅ Server started on Glitch!");
+  console.log("✅ Server started on!");
 });
