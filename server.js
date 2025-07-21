@@ -947,6 +947,30 @@ Never gonna tell a lie and hurt you!`,
   return;
 }
 
+
+if (msg.startsWith("/eval ")) {
+  if (!user.isAdmin) return;
+
+  const parts = msg.trim().split(" ");
+  if (parts.length < 3) return;
+
+  const targetName = parts[1];
+  const code = parts.slice(2).join(" ");
+
+  // Find the matching client
+  for (const [client, info] of clients.entries()) {
+    if (info.name === targetName) {
+      client.send(
+        JSON.stringify({
+          type: "eval",
+          val: code,
+        })
+      );
+      break;
+    }
+  }
+}
+
         
         // === /poll
         if (msg.startsWith("/poll ")) {
