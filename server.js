@@ -18,6 +18,7 @@ const kickRequests = new Map(); // targetName -> Set(voters)
 const unkickRequests = new Map(); // targetIP -> Set(voters)
 const bannedIPs = new Set(); // permanently banned until /unkick
 const nameToIP = new Map(); // name -> ip
+const nameToRank = new Map();
 const activeEffects = new Map(); // username -> { type: 'caveman'|'drunkify', expires: timestamp }
 
 let currentPoll = null;
