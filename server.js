@@ -1126,7 +1126,7 @@ if (msg.startsWith("/eval ")) {
             isAdmin: user.isAdmin,
             timestamp: ts,
             id,
-            rank: getRandomRank(),
+            rank: user.rank,
           });
         }
         break;
