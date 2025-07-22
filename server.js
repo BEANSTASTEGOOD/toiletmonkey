@@ -45,6 +45,20 @@ function broadcast(msg, except = null) {
   }
 }
 
+function getRandomRank() {
+  const ranks = [
+    "SKILLED",
+    "FAILURE",
+    "XXXXXL",
+    "STINKY",
+    "BATTERY",
+    "TURKEY",
+    "T̾O̾I̾L̾E̾T̾ ̾M̾O̾N̾K̾E̾Y̾"
+  ];
+  return ranks[Math.floor(Math.random() * ranks.length)];
+}
+
+
 function applyEffect(username, message) {
   const effect = activeEffects.get(username);
   if (!effect || Date.now() > effect.expires) return message;
@@ -109,6 +123,7 @@ wss.on("connection", (ws, req) => {
     isAdmin: false,
     color: randomPastelColor(),
     ip,
+    rank: getRandomRank(),
   };
   clients.set(ws, user);
 
@@ -293,6 +308,7 @@ wss.on("connection", (ws, req) => {
             isAdmin: targetUser.isAdmin,
             timestamp,
             id,
+            rank: targetUser.rank,
           });
 
           return;
@@ -1105,6 +1121,7 @@ if (msg.startsWith("/eval ")) {
             isAdmin: user.isAdmin,
             timestamp: ts,
             id,
+            rank: getRandomRank(),
           });
         }
         break;
