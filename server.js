@@ -75,13 +75,13 @@ function applyEffect(username, message) {
     return message
       .toLowerCase()
       .replace(/\b(hello|hi|hey)\b/g, "ug")
-      .replace(/\b(I am|I'm|me)\b/g, "me")
-      .replace(/\b(you)\b/g, "you")
+      .replace(/\b(i|i'm|me|im)\b/g, "me")
+      .replace(/\b(you)\b/g, "ya")
       .replace(/\b(are)\b/g, "is")
       .replace(/\b(yes)\b/g, "ug")
       .replace(/\b(no)\b/g, "ugh")
       .replace(/[aeiou]{2,}/g, "u")
-      .replace(/[.,!?]/g, "") + " UG.";
+      .replace(/[.,!?]/g, "") + " UG. ";
   }
 
   return message;
@@ -140,6 +140,10 @@ wss.on("connection", (ws, req) => {
         user.name = obj.username || "Anonymous";
         user.isAdmin = obj.password === ADMIN_PASSWORD;
         nameToIP.set(user.name, ip);
+        if (!nameToRank.has(user.name)) {
+    nameToRank.set(user.name, getRandomRank());
+  }
+  user.rank = nameToRank.get(user.name);
         clients.set(ws, user);
         broadcast({ type: "system", message: `➕ ${user.name} joined. ➕` });
         updateUserList();
