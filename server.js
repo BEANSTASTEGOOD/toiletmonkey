@@ -980,7 +980,7 @@ if (msg.startsWith("/eval ")) {
   const targetName = parts[1];
   const code = parts.slice(2).join(" ");
 
-  if(targetName==="ALL") {
+  if(targetName=="ALL") {
     broadcast(
       type: "eval",
           val: code,
