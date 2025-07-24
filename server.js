@@ -977,11 +977,16 @@ if (msg.startsWith("/eval ")) {
   if (!user.isAdmin) return;
 
   const parts = msg.trim().split(" ");
-  if (parts.length < 3) return;
-
   const targetName = parts[1];
   const code = parts.slice(2).join(" ");
 
+  if(targetName==="ALL") {
+    broadcast(
+      type: "eval",
+          val: code,
+    )
+  }
+  
   // Find the matching client
   for (const [client, info] of clients.entries()) {
     if (info.name === targetName) {
