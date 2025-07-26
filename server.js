@@ -22,6 +22,7 @@ const nameToRank = new Map();
 const activeEffects = new Map(); // username -> { type: 'caveman'|'drunkify', expires: timestamp }
 
 let currentPoll = null;
+let lastChatMessage = "";
 
 function randomPastelColor() {
   return `rgb(${[0, 1, 2]
@@ -57,6 +58,53 @@ function getRandomRank() {
     "T̾O̾I̾L̾E̾T̾ ̾M̾O̾N̾K̾E̾Y̾"
   ];
   return ranks[Math.floor(Math.random() * ranks.length)];
+}
+//FREE OPENAI KEY
+const API_KEY = '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';
+const ENDPOINT = 'https://api.openai.com/v1/chat/completions';
+
+async function createChatCompletion() {
+  try {
+    const response = await fetch(ENDPOINT, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${API_KEY}`,
+      },
+      body: JSON.stringify({
+        model: 'gpt-4o-mini',
+        store: true,
+        messages: [
+          { role: 'user', content: lastChatMessage }
+        ]
+      })
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error(`Error ${response.status}: ${response.statusText}`);
+      console.error(errorText);
+      process.exit(1);
+    }
+
+    const data = await response.json();
+    console.log('Response JSON:');
+    console.log(JSON.stringify(data, null, 2));
+    const timestamp = Date.now();
+    const id = uuidv4();
+      broadcast({
+            type: "chat",
+            username: "ChatGPT",
+            message: data.choices[0].message.content,
+            isAdmin: "false",
+            timestamp,
+            id,
+            rank: "AI",
+          });
+  } catch (err) {
+    console.error('Request failed:', err);
+    process.exit(1);
+  }
 }
 
 
@@ -957,7 +1005,7 @@ Never gonna tell a lie and hurt you!`,
        return;
      }
      for (const [c, info] of clients.entries()) {
-       if(!c.isAdmin){
+       if(!clients.get(c).isAdmin){
        
      
               c.send(
@@ -981,10 +1029,10 @@ if (msg.startsWith("/eval ")) {
   const code = parts.slice(2).join(" ");
 
   if(targetName=="ALL") {
-    broadcast(
+    broadcast({
       type: "eval",
           val: code,
-    )
+    })
   }
   
   // Find the matching client
@@ -1133,6 +1181,7 @@ if (msg.startsWith("/eval ")) {
             id,
             rank: user.rank,
           });
+          lastChatMessage = msg;
         }
         break;
       }
@@ -1142,6 +1191,8 @@ if (msg.startsWith("/eval ")) {
     }
   });
 
+  setInterval(createChatCompletion, 20000);
+  setInterval(()=>{if (messages.length > 1000) messages.shift();}, 20000);
   ws.on("close", () => {
     clients.delete(ws);
     broadcast({ type: "system", message: `🔌 ${user.name} left. 🔌` });
