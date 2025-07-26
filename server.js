@@ -60,7 +60,7 @@ function getRandomRank() {
   return ranks[Math.floor(Math.random() * ranks.length)];
 }
 //FREE OPENAI KEY
-const API_KEY = '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';
+const API_KEY = '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';
 const ENDPOINT = 'https://api.openai.com/v1/chat/completions';
 
 async function createChatCompletion() {
