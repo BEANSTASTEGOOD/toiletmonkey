@@ -96,7 +96,7 @@ async function createChatCompletion() {
             type: "chat",
             username: "ChatGPT",
             message: data.choices[0].message.content,
-            isAdmin: "false",
+            isAdmin: false,
             timestamp,
             id,
             rank: "AI",
