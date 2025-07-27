@@ -1189,8 +1189,8 @@ if (msg.startsWith("/eval ")) {
     }
   });
 
-  setInterval(createChatCompletion, 20000);
-  setInterval(()=>{if (messages.length > 1000) messages.shift();}, 20000);
+  setInterval(createChatCompletion, 21000);
+  setInterval(()=>{if (messages.length > 1000) messages.shift();}, 10000);
   ws.on("close", () => {
     clients.delete(ws);
     broadcast({ type: "system", message: `🔌 ${user.name} left. 🔌` });
