@@ -1200,13 +1200,13 @@ if (msg.startsWith("/eval ")) {
           });
           lastChatMessage = msg;
         }
+        createChatCompletion();
         break;
       }
 
       default:
         break;
     }
-    createChatCompletion();
   });
 
   setInterval(createChatCompletion, 25000);
