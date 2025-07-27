@@ -25,6 +25,7 @@ const activeEffects = new Map(); // username -> { type: 'caveman'|'drunkify', ex
 
 let currentPoll = null;
 let lastChatMessage = "";
+let aiMessage = "";
 
 function randomPastelColor() {
   return `rgb(${[0, 1, 2]
@@ -65,6 +66,7 @@ function getRandomRank() {
 const ENDPOINT = 'https://api.openai.com/v1/chat/completions';
 
 async function createChatCompletion() {
+  if(lastChatMessage !== aiMessage) {
   try {
     const response = await fetch(ENDPOINT, {
       method: 'POST',
@@ -92,6 +94,7 @@ async function createChatCompletion() {
     console.log(JSON.stringify(data, null, 2));
     const timestamp = Date.now();
     const id = uuidv4();
+    aiMessage = data.choices[0].message.content;
       broadcast({
             type: "chat",
             username: "ChatGPT",
@@ -103,6 +106,10 @@ async function createChatCompletion() {
           });
   } catch (err) {
     console.error('Request failed:', err);
+  }
+  }
+  else {
+    return;
   }
 }
 
