@@ -683,7 +683,7 @@ figure {
     <br />
     <h4 style="color: #ccc">
       Text effects: ~text~, ^text^, #text#, $text$, %text%, -text-, [text],
-      |text|, {text}, @text@, _text_, *text*, ;text;, =text=, !text!, +text+, :text:, `text`.
+      |text|, {text}, @text@, _text_, *text*, ;text;, =text=, &gt;text&lt;, +text+, :text:, `text`.
     </h4>
     <div id="userlist"></div>
     <div id="typing"></div>
@@ -898,7 +898,7 @@ figure {
             .replace(/-(.*?)-/g, '<span class="good">$1</span>')
             .replace(/~(.*?)~/g, '<span class="cool-strike">$1</span>')
             .replace(/;(.*?);/g, '<span class="noice">👉$1👈</span>')
-            .replace(/!(.*?)!/g, '<span class="sixtyfour">$1</span')
+            .replace(/>(.*?)</g, '<span class="sixtyfour">$1</span')
             .replace(/=(.*?)=/g, '<span class="lobster">$1</span>')
           .replace(/`(.*?)`/g, '<figure> <span id="happytext">$1</span> <span id="happytext">$1</span> <span id="happytext">$1</span> <span id="happytext">$1</span> <span id="happytext">$1</span> <span id="happytext">$1</span> <span id="happytext">$1</span> <span id="happytext">$1</span> <span id="happytext">$1</span> <span id="happytext">$1</span> </figure>')
           .replace(/\+(.*?)\+/g, '<span class="wow">$1</span>')
