@@ -103,6 +103,7 @@ async function createChatCompletion() {
     const timestamp = Date.now();
     const id = uuidv4();
     aiMessage = data.choices[0].message.content;
+    lastChatMessage = data.choices[0].message.content;
       broadcast({
             type: "chat",
             username: "🧻Toilet Monkey🧻",
