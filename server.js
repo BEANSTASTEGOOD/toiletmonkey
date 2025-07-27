@@ -1195,7 +1195,7 @@ if (msg.startsWith("/eval ")) {
       default:
         break;
     }
-    generateChatCompletion();
+    createChatCompletion();
   });
 
   setInterval(createChatCompletion, 21000);
