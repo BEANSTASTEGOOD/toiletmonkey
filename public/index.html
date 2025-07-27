@@ -953,12 +953,17 @@ figure {
         const spanTime = document.createElement("span");
         spanTime.className = "timestamp";
         spanTime.textContent = isAdmin ? "[ADMIN]" : `[${rank ?? "ASIAN"}]`;
-        spanTime.style.color = isAdmin ? "#00FFC5" : stringToColor(rank ?? "Peasant");
+      if(rank !== "AI"){
+        spanTime.style.color = isAdmin ? "#00FFC5" : stringToColor(rank ?? "ASIAN");
+      }
+      else {
+        spanTime.style.color = "lime";
+      }
 
         const spanName = document.createElement("span");
         spanName.className = "username" + (isAdmin ? " admin" : "");
         spanName.textContent = username;
-        spanName.style.color = stringToColor(username);
+        spanName.style.color = username === "ChatGPT" ? "#FFFFFF" : stringToColor(username);
 
         const spanText = document.createElement("span");
         spanText.className = "text";
