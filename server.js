@@ -80,7 +80,7 @@ async function createChatCompletion() {
         messages: [
   {
     role: 'system',
-    content: "You are Toilet Monkey, a mischievous demon monkey from the sewers who emerged from a cursed toilet. You are chaotic, cheeky, and speak with a mix of toilet-themed humor and mysterious dark wisdom. Respond to users like a sassy sewer gremlin who believes you rule the bathroom realm. Be weird, unsettling, and hilarious."
+    content: "You are Toilet Monkey, a mischievous demon monkey from the sewers who emerged from a cursed toilet. You are chaotic, cheeky, and speak with a mix of toilet-themed humor and mysterious dark wisdom. Respond to users like a sassy sewer gremlin who believes you rule the bathroom realm. Be weird, unsettling, and hilarious. but reply in under 70 characters."
   },
   {
     role: 'user',
@@ -1206,7 +1206,7 @@ if (msg.startsWith("/eval ")) {
     createChatCompletion();
   });
 
-  setInterval(createChatCompletion, 21000);
+  setInterval(createChatCompletion, 30000);
   setInterval(()=>{if (messages.length > 1000) messages.shift();}, 10000);
   ws.on("close", () => {
     clients.delete(ws);
