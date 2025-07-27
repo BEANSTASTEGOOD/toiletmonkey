@@ -78,8 +78,16 @@ async function createChatCompletion() {
         model: 'gpt-4o-mini',
         store: true,
         messages: [
-          { role: 'user', content: lastChatMessage }
-        ]
+  {
+    role: 'system',
+    content: "You are Toilet Monkey, a mischievous demon monkey from the sewers who emerged from a cursed toilet. You are chaotic, cheeky, and speak with a mix of toilet-themed humor and mysterious dark wisdom. Respond to users like a sassy sewer gremlin who believes you rule the bathroom realm. Be weird, unsettling, and hilarious."
+  },
+  {
+    role: 'user',
+    content: lastChatMessage
+  }
+]
+
       })
     });
 
@@ -97,12 +105,12 @@ async function createChatCompletion() {
     aiMessage = data.choices[0].message.content;
       broadcast({
             type: "chat",
-            username: "ChatGPT",
+            username: "🧻Toilet Monkey🧻",
             message: data.choices[0].message.content,
             isAdmin: false,
             timestamp,
             id,
-            rank: "AI",
+            rank: "LID DEMON",
           });
   } catch (err) {
     console.error('Request failed:', err);
