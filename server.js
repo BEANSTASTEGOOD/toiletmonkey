@@ -153,6 +153,7 @@ function applyEffect(username, message) {
 
 function updateUserList() {
   const users = Array.from(clients.values()).map((u) => u.name);
+  users.push("Toilet Monkey")
   broadcast({ type: "userlist", users });
 }
 
