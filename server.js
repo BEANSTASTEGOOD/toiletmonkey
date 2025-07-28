@@ -6,7 +6,7 @@ const { v4: uuidv4 } = require("uuid");
 require('dotenv').config();
 const API_KEY = process.env.API_KEY;
 
-const ADMIN_PASSWORD = "mydog";
+const ADMIN_PASSWORD = "spagetiontopofspageti";
 
 const app = express();
 const server = http.createServer(app);
